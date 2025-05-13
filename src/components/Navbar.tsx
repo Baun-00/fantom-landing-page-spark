@@ -84,6 +84,10 @@ const Navbar = () => {
               </NavigationMenuItem>
               
               <NavigationMenuItem>
+                <Link to="/cars4sale" className="inline-block text-gray-600 hover:text-fantom-green hover:bg-[#D3E4FD] hover:translate-y-[-2px] hover:shadow-sm transition-all duration-300 rounded-md px-3 py-1.5">Cars4sale</Link>
+              </NavigationMenuItem>
+              
+              <NavigationMenuItem>
                 <Link to="/blog" className="inline-block text-gray-600 hover:text-fantom-green hover:bg-[#D3E4FD] hover:translate-y-[-2px] hover:shadow-sm transition-all duration-300 rounded-md px-3 py-1.5">Blog</Link>
               </NavigationMenuItem>
               
