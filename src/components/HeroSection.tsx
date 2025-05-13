@@ -17,13 +17,13 @@ const HeroSection = () => {
           
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="bg-fantom-green/20 p-1 rounded-full">
+              <div className="bg-fantom-green/20 p-1 rounded-full transition-transform duration-300 hover:scale-110">
                 <div className="bg-fantom-lightGreen rounded-full w-2 h-2"></div>
               </div>
               <p>Rates from as low as 7.5% p.a</p>
             </div>
             <div className="flex items-center space-x-2">
-              <div className="bg-fantom-green/20 p-1 rounded-full">
+              <div className="bg-fantom-green/20 p-1 rounded-full transition-transform duration-300 hover:scale-110">
                 <div className="bg-fantom-lightGreen rounded-full w-2 h-2"></div>
               </div>
               <p>Borrow from $10,000 to $500,000</p>
@@ -34,7 +34,7 @@ const HeroSection = () => {
             <input 
               type="text" 
               placeholder="How much do you need?" 
-              className="px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-fantom-green text-gray-800"
+              className="px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-fantom-green text-gray-800 transition-all duration-300 hover:shadow-md"
             />
             <Button className="bg-fantom-green hover:bg-fantom-green/90 py-6">Search for a loan</Button>
           </div>
@@ -42,7 +42,7 @@ const HeroSection = () => {
           <div className="flex items-center space-x-2">
             <div className="flex -space-x-2">
               {[1, 2, 3, 4].map(i => (
-                <div key={i} className="w-8 h-8 rounded-full bg-gray-300 border-2 border-white"></div>
+                <div key={i} className="w-8 h-8 rounded-full bg-gray-300 border-2 border-white transition-transform duration-300 hover:scale-110 hover:z-10"></div>
               ))}
             </div>
             <p><span className="font-semibold">100+</span> satisfied customers</p>
@@ -50,23 +50,23 @@ const HeroSection = () => {
         </div>
         
         <div className="relative">
-          <div className="relative z-10">
+          <div className="relative z-10 transition-all duration-500 hover:scale-105 hover:shadow-xl">
             <img src="/placeholder.svg" alt="Car Loan" className="max-w-full rounded-lg" />
           </div>
           
           {/* Animated money elements */}
           <div className="absolute top-10 -left-4 animate-float">
-            <div className="bg-fantom-green text-white p-2 rounded-md transform rotate-12">
+            <div className="bg-fantom-green text-white p-2 rounded-md transform rotate-12 transition-transform duration-300 hover:scale-110">
               💵
             </div>
           </div>
           <div className="absolute top-1/4 right-0 animate-float" style={{ animationDelay: '1s' }}>
-            <div className="bg-fantom-green text-white p-2 rounded-md transform -rotate-6">
+            <div className="bg-fantom-green text-white p-2 rounded-md transform -rotate-6 transition-transform duration-300 hover:scale-110">
               💵
             </div>
           </div>
           <div className="absolute bottom-10 left-1/4 animate-float" style={{ animationDelay: '2s' }}>
-            <div className="bg-fantom-green text-white p-2 rounded-md transform rotate-3">
+            <div className="bg-fantom-green text-white p-2 rounded-md transform rotate-3 transition-transform duration-300 hover:scale-110">
               💵
             </div>
           </div>

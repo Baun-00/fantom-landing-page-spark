@@ -29,11 +29,13 @@ const ServicesSection = () => {
         
         <div className="grid md:grid-cols-3 gap-8 mt-10">
           {services.map((service, index) => (
-            <div key={index} className="border border-gray-200 rounded-lg p-6 transition-all hover:shadow-md">
+            <div key={index} className="border border-gray-200 rounded-lg p-6 transition-all duration-300 hover:shadow-md hover:-translate-y-1">
               <div className="flex justify-center mb-4">
-                {service.icon}
+                <div className="transition-transform duration-300 hover:scale-110">
+                  {service.icon}
+                </div>
               </div>
-              <h3 className="text-xl font-bold text-center text-fantom-navy mb-3">{service.title}</h3>
+              <h3 className="text-xl font-bold text-center text-fantom-navy mb-3 transition-colors duration-300 hover:text-fantom-green">{service.title}</h3>
               <p className="text-gray-600 text-center mb-6">{service.description}</p>
               <div className="flex justify-center">
                 <Button variant="outline" className="border-fantom-navy text-fantom-navy hover:bg-fantom-navy/5">
@@ -44,7 +46,7 @@ const ServicesSection = () => {
           ))}
         </div>
         
-        <div className="mt-16 bg-fantom-green rounded-lg p-8 text-center">
+        <div className="mt-16 bg-fantom-green rounded-lg p-8 text-center transition-all duration-300 hover:shadow-xl">
           <h3 className="text-2xl font-bold text-white mb-6">Calculate Loan Amount</h3>
           <Button className="bg-white text-fantom-green hover:bg-gray-100">Apply for a loan</Button>
         </div>
