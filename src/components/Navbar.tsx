@@ -2,6 +2,41 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
+
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  );
+});
+ListItem.displayName = "ListItem";
 
 const Navbar = () => {
   return (
@@ -14,12 +49,53 @@ const Navbar = () => {
           </Link>
         </div>
         
-        <div className="hidden md:flex space-x-6">
-          <Link to="/about" className="text-gray-600 hover:text-fantom-green transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-fantom-green after:transform after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300">About us</Link>
-          <Link to="/services" className="text-gray-600 hover:text-fantom-green transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-fantom-green after:transform after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300">Services</Link>
-          <Link to="/blog" className="text-gray-600 hover:text-fantom-green transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-fantom-green after:transform after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300">Blog</Link>
-          <Link to="/resources" className="text-gray-600 hover:text-fantom-green transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-fantom-green after:transform after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300">Resources</Link>
-          <Link to="/contact" className="text-gray-600 hover:text-fantom-green transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-fantom-green after:transform after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300">Contact</Link>
+        <div className="hidden md:flex">
+          <NavigationMenu>
+            <NavigationMenuList className="gap-6">
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-gray-600 hover:text-fantom-green transition-colors duration-300">About us</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                    <ListItem href="/about/company" title="Our Company">
+                      Learn about our mission, vision, and values
+                    </ListItem>
+                    <ListItem href="/about/impact" title="Our Impact">
+                      Discover how we're making a difference
+                    </ListItem>
+                    <ListItem href="/about/media" title="Media">
+                      Press releases and news about Fantom Capital
+                    </ListItem>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              
+              <NavigationMenuItem>
+                <NavigationMenuTrigger className="bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-gray-600 hover:text-fantom-green transition-colors duration-300">What we do</NavigationMenuTrigger>
+                <NavigationMenuContent>
+                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                    <ListItem href="/services/loans" title="Loans">
+                      Explore our loan products and services
+                    </ListItem>
+                    <ListItem href="/services/insurance" title="Insurance Agency">
+                      Comprehensive insurance solutions
+                    </ListItem>
+                  </ul>
+                </NavigationMenuContent>
+              </NavigationMenuItem>
+              
+              <NavigationMenuItem>
+                <Link to="/blog" className="text-gray-600 hover:text-fantom-green transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-fantom-green after:transform after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300">Blog</Link>
+              </NavigationMenuItem>
+              
+              <NavigationMenuItem>
+                <Link to="/resources" className="text-gray-600 hover:text-fantom-green transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-fantom-green after:transform after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300">Resources</Link>
+              </NavigationMenuItem>
+              
+              <NavigationMenuItem>
+                <Link to="/contact" className="text-gray-600 hover:text-fantom-green transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-fantom-green after:transform after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300">Contact</Link>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          </NavigationMenu>
         </div>
         
         <div className="flex items-center space-x-3">
