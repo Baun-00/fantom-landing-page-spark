@@ -53,7 +53,7 @@ const Navbar = () => {
           <NavigationMenu>
             <NavigationMenuList className="gap-6">
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-gray-600 hover:text-fantom-green transition-colors duration-300">About us</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="bg-transparent hover:bg-[#D3E4FD] hover:translate-y-[-2px] hover:shadow-sm focus:bg-transparent data-[state=open]:bg-[#D3E4FD] data-[state=open]:translate-y-[-2px] text-gray-600 hover:text-fantom-green transition-all duration-300 rounded-md px-3 py-1.5">About us</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                     <ListItem href="/about/company" title="Our Company">
@@ -70,7 +70,7 @@ const Navbar = () => {
               </NavigationMenuItem>
               
               <NavigationMenuItem>
-                <NavigationMenuTrigger className="bg-transparent hover:bg-transparent focus:bg-transparent data-[state=open]:bg-transparent text-gray-600 hover:text-fantom-green transition-colors duration-300">What we do</NavigationMenuTrigger>
+                <NavigationMenuTrigger className="bg-transparent hover:bg-[#D3E4FD] hover:translate-y-[-2px] hover:shadow-sm focus:bg-transparent data-[state=open]:bg-[#D3E4FD] data-[state=open]:translate-y-[-2px] text-gray-600 hover:text-fantom-green transition-all duration-300 rounded-md px-3 py-1.5">What we do</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                     <ListItem href="/services/loans" title="Loans">
@@ -84,22 +84,22 @@ const Navbar = () => {
               </NavigationMenuItem>
               
               <NavigationMenuItem>
-                <Link to="/blog" className="text-gray-600 hover:text-fantom-green transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-fantom-green after:transform after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300">Blog</Link>
+                <Link to="/blog" className="inline-block text-gray-600 hover:text-fantom-green hover:bg-[#D3E4FD] hover:translate-y-[-2px] hover:shadow-sm transition-all duration-300 rounded-md px-3 py-1.5">Blog</Link>
               </NavigationMenuItem>
               
               <NavigationMenuItem>
-                <Link to="/resources" className="text-gray-600 hover:text-fantom-green transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-fantom-green after:transform after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300">Resources</Link>
+                <Link to="/resources" className="inline-block text-gray-600 hover:text-fantom-green hover:bg-[#D3E4FD] hover:translate-y-[-2px] hover:shadow-sm transition-all duration-300 rounded-md px-3 py-1.5">Resources</Link>
               </NavigationMenuItem>
               
               <NavigationMenuItem>
-                <Link to="/contact" className="text-gray-600 hover:text-fantom-green transition-colors duration-300 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-fantom-green after:transform after:scale-x-0 after:origin-left hover:after:scale-x-100 after:transition-transform after:duration-300">Contact</Link>
+                <Link to="/contact" className="inline-block text-gray-600 hover:text-fantom-green hover:bg-[#D3E4FD] hover:translate-y-[-2px] hover:shadow-sm transition-all duration-300 rounded-md px-3 py-1.5">Contact</Link>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
         </div>
         
         <div className="flex items-center space-x-3">
-          <Button variant="outline" className="border-fantom-navy text-fantom-navy hover:bg-fantom-navy/5 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">Login</Button>
+          <Button variant="outline" className="border-fantom-navy text-fantom-navy hover:bg-[#D3E4FD] hover:text-fantom-green transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">Login</Button>
           <Button className="bg-fantom-green text-white hover:bg-fantom-green/90 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">Sign up</Button>
         </div>
       </div>
