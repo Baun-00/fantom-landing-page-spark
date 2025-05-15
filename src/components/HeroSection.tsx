@@ -4,8 +4,37 @@ import { Button } from "@/components/ui/button";
 
 const HeroSection = () => {
   return (
-    <section className="bg-gradient-to-br from-fantom-navy to-[#1a2765] text-white py-20">
-      <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
+    <section className="bg-gradient-to-br from-fantom-navy to-[#1a2765] text-white py-20 relative overflow-hidden">
+      {/* Currency floating elements (larger and more impactful) */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-[15%] animate-float" style={{ animationDuration: '8s' }}>
+          <div className="bg-fantom-green/20 backdrop-blur-sm text-white p-3 rounded-md transform rotate-12 transition-transform duration-300 scale-125 shadow-lg">
+            💵
+          </div>
+        </div>
+        <div className="absolute top-1/3 right-[10%] animate-float" style={{ animationDuration: '7s', animationDelay: '1s' }}>
+          <div className="bg-fantom-green/20 backdrop-blur-sm text-white p-4 rounded-md transform -rotate-6 transition-transform duration-300 scale-150 shadow-lg">
+            <span className="text-xl">KSh</span>
+          </div>
+        </div>
+        <div className="absolute bottom-1/4 left-[25%] animate-float" style={{ animationDuration: '9s', animationDelay: '2s' }}>
+          <div className="bg-fantom-green/20 backdrop-blur-sm text-white p-3 rounded-md transform rotate-3 transition-transform duration-300 scale-125 shadow-lg">
+            💰
+          </div>
+        </div>
+        <div className="absolute top-2/3 right-[30%] animate-float" style={{ animationDuration: '10s', animationDelay: '3s' }}>
+          <div className="bg-fantom-green/20 backdrop-blur-sm text-white p-3 rounded-md transform rotate-[-8deg] transition-transform duration-300 scale-125 shadow-lg">
+            💵
+          </div>
+        </div>
+        <div className="absolute top-1/2 left-[5%] animate-float" style={{ animationDuration: '11s', animationDelay: '0.5s' }}>
+          <div className="bg-fantom-green/20 backdrop-blur-sm text-white p-3 rounded-md transform rotate-[15deg] transition-transform duration-300 scale-125 shadow-lg">
+            <span className="text-lg">KSh</span>
+          </div>
+        </div>
+      </div>
+      
+      <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8 items-center relative z-10">
         <div className="space-y-6">
           <div>
             <p className="text-fantom-lightGreen font-medium mb-2">Your Future, Funded Today.</p>
@@ -58,20 +87,20 @@ const HeroSection = () => {
             />
           </div>
           
-          {/* Animated money elements */}
-          <div className="absolute top-10 -left-4 animate-float">
-            <div className="bg-fantom-green text-white p-2 rounded-md transform rotate-12 transition-transform duration-300 hover:scale-110">
+          {/* Enhanced money elements with parallax effect */}
+          <div className="absolute top-10 -left-4 animate-float" style={{ animationDuration: '5s' }}>
+            <div className="bg-fantom-green text-white p-3 rounded-md transform rotate-12 transition-transform duration-300 hover:scale-110 shadow-lg">
               💵
             </div>
           </div>
-          <div className="absolute top-1/4 right-0 animate-float" style={{ animationDelay: '1s' }}>
-            <div className="bg-fantom-green text-white p-2 rounded-md transform -rotate-6 transition-transform duration-300 hover:scale-110">
-              💵
+          <div className="absolute top-1/4 right-0 animate-float" style={{ animationDuration: '6s', animationDelay: '1s' }}>
+            <div className="bg-fantom-green text-white p-3 rounded-md transform -rotate-6 transition-transform duration-300 hover:scale-110 shadow-lg">
+              <span className="text-lg">KSh</span>
             </div>
           </div>
-          <div className="absolute bottom-10 left-1/4 animate-float" style={{ animationDelay: '2s' }}>
-            <div className="bg-fantom-green text-white p-2 rounded-md transform rotate-3 transition-transform duration-300 hover:scale-110">
-              💵
+          <div className="absolute bottom-10 left-1/4 animate-float" style={{ animationDuration: '7s', animationDelay: '2s' }}>
+            <div className="bg-fantom-green text-white p-3 rounded-md transform rotate-3 transition-transform duration-300 hover:scale-110 shadow-lg">
+              💰
             </div>
           </div>
         </div>

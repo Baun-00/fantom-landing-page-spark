@@ -1,7 +1,8 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Link } from 'react-router-dom';
+import { Menu } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -39,6 +40,12 @@ const ListItem = React.forwardRef<
 ListItem.displayName = "ListItem";
 
 const Navbar = () => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
   return (
     <nav className="bg-white py-4 px-6 shadow-sm sticky top-0 z-50">
       <div className="container mx-auto flex justify-between items-center">
@@ -53,6 +60,19 @@ const Navbar = () => {
           </Link>
         </div>
         
+        {/* Mobile menu button */}
+        <div className="md:hidden">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={toggleMobileMenu}
+            aria-label="Toggle menu"
+          >
+            <Menu className="h-6 w-6" />
+          </Button>
+        </div>
+        
+        {/* Desktop Navigation */}
         <div className="hidden md:flex">
           <NavigationMenu>
             <NavigationMenuList className="gap-6">
@@ -106,7 +126,24 @@ const Navbar = () => {
           </NavigationMenu>
         </div>
         
-        <div className="flex items-center space-x-3">
+        {/* Mobile menu dropdown */}
+        {mobileMenuOpen && (
+          <div className="absolute top-full left-0 right-0 bg-white shadow-md z-50 md:hidden">
+            <div className="flex flex-col p-4">
+              <Link to="/about/company" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Our Company</Link>
+              <Link to="/about/impact" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Our Impact</Link>
+              <Link to="/about/media" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Media</Link>
+              <Link to="/services/loans" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Loans</Link>
+              <Link to="/services/insurance" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Insurance Agency</Link>
+              <Link to="/cars4sale" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Cars4sale</Link>
+              <Link to="/blog" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Blog</Link>
+              <Link to="/resources" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Resources</Link>
+              <Link to="/contact" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Contact</Link>
+            </div>
+          </div>
+        )}
+        
+        <div className="hidden md:flex items-center space-x-3">
           <Button variant="outline" className="border-fantom-navy text-fantom-navy hover:bg-[#D3E4FD] hover:text-fantom-green transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">Login</Button>
           <Button className="bg-fantom-green text-white hover:bg-fantom-green/90 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">Sign up</Button>
         </div>
