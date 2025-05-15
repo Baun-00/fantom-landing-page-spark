@@ -44,7 +44,11 @@ const Navbar = () => {
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex items-center">
           <Link to="/" className="flex items-center group">
-            <img src="/placeholder.svg" alt="Fantom Capital Logo" className="h-10 w-auto transition-transform duration-300 group-hover:scale-105" />
+            <img 
+              src="/lovable-uploads/f7a3d19f-842a-41b0-a4a8-3134cb88f0b9.png" 
+              alt="Fantom Capital Logo" 
+              className="h-10 w-auto transition-transform duration-300 group-hover:scale-105" 
+            />
             <span className="ml-2 text-xl font-display font-semibold text-fantom-navy transition-colors duration-300 group-hover:text-fantom-green">Fantom Capital</span>
           </Link>
         </div>

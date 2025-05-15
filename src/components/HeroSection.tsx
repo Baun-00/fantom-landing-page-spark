@@ -51,7 +51,11 @@ const HeroSection = () => {
         
         <div className="relative">
           <div className="relative z-10 transition-all duration-500 hover:scale-105 hover:shadow-xl">
-            <img src="/placeholder.svg" alt="Car Loan" className="max-w-full rounded-lg" />
+            <img 
+              src="/lovable-uploads/b347dcbf-1702-4575-881d-0ead96b1289e.png" 
+              alt="Car Financing" 
+              className="max-w-full rounded-lg object-contain"
+            />
           </div>
           
           {/* Animated money elements */}
