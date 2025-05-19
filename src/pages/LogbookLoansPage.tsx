@@ -49,8 +49,8 @@ const LogbookLoansPage = () => {
               
               <div className="w-full md:w-1/2 relative">
                 <img 
-                  src="/lovable-uploads/df29c2f1-4e43-488a-9cde-d1471917c7d4.png" 
-                  alt="Car with stacked coins" 
+                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
+                  alt="Car financing concept" 
                   className="rounded-lg mx-auto max-w-full h-auto"
                 />
               </div>

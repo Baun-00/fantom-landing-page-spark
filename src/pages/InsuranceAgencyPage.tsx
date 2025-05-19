@@ -12,7 +12,7 @@ const InsuranceAgencyPage = () => {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="w-full bg-cover bg-center relative" style={{ backgroundImage: "url('/lovable-uploads/1de66978-7178-4344-b2bf-0042190df24a.png')", height: "500px" }}>
+        <section className="w-full bg-cover bg-center relative" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80')", height: "500px" }}>
           <div className="absolute inset-0 bg-fantom-navy/60"></div>
           <div className="container mx-auto px-4 md:px-6 h-full flex items-center relative z-10">
             <div className="max-w-3xl">
@@ -186,7 +186,7 @@ const InsuranceAgencyPage = () => {
         </section>
 
         {/* Contact Support Section */}
-        <section className="py-16 bg-cover bg-center relative" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80')` }}>
+        <section className="py-16 bg-cover bg-center relative" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80')` }}>
           <div className="absolute inset-0 bg-fantom-navy/70"></div>
           <div className="container mx-auto px-4 md:px-6 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
