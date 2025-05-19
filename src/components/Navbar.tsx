@@ -103,6 +103,9 @@ const Navbar = () => {
                     <ListItem href="/services/insurance" title="Insurance Agency">
                       Comprehensive insurance solutions
                     </ListItem>
+                    <ListItem href="/services/logbook-loans" title="Logbook Loans">
+                      Turn your car into quick cash without letting go
+                    </ListItem>
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
@@ -135,6 +138,7 @@ const Navbar = () => {
               <Link to="/about/media" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Media</Link>
               <Link to="/services/loans" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Loans</Link>
               <Link to="/services/insurance" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Insurance Agency</Link>
+              <Link to="/services/logbook-loans" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Logbook Loans</Link>
               <Link to="/cars4sale" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Cars4sale</Link>
               <Link to="/blog" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Blog</Link>
               <Link to="/resources" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Resources</Link>
