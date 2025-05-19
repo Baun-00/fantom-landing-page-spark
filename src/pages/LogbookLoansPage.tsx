@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
 import { CheckCircle2, ShieldCheck, FileCheck, CheckCheck, Car } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import CyclingText from '@/components/CyclingText';
 
 const LogbookLoansPage = () => {
   const [carValue, setCarValue] = useState<number[]>([15000]);
@@ -32,12 +33,20 @@ const LogbookLoansPage = () => {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative bg-fantom-navy py-16 md:py-24">
-          <div className="container mx-auto px-4 md:px-6">
+        <section className="relative bg-cover bg-center py-16 md:py-24" style={{backgroundImage: "url('https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80')"}}>
+          <div className="absolute inset-0 bg-black/60"></div>
+          <div className="container mx-auto px-4 md:px-6 relative z-10">
             <div className="flex flex-col md:flex-row items-center">
               <div className="w-full md:w-1/2 mb-10 md:mb-0">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-4">
-                  Turn Your Car Into Quick Cash—<span className="text-fantom-green">Without Letting Go</span>
+                  <CyclingText 
+                    textOptions={[
+                      "Turn Your Car Into Quick Cash—Without Letting Go",
+                      "Unlock Your Car's Value—Keep Driving",
+                      "Get Cash From Your Car—Own It While You Pay",
+                      "Quick Liquidity From Your Vehicle—No Surrender"
+                    ]}
+                  />
                 </h1>
                 <p className="text-white text-lg md:text-xl mb-8">
                   Flexible logbook loans with fast approval, transparent terms, and full access to your vehicle.
@@ -49,7 +58,7 @@ const LogbookLoansPage = () => {
               
               <div className="w-full md:w-1/2 relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
+                  src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
                   alt="Car financing concept" 
                   className="rounded-lg mx-auto max-w-full h-auto"
                 />

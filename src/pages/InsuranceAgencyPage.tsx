@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Shield, User, UsersRound, CheckCircle2, Car, Building, Stethoscope, BarChart3 } from 'lucide-react';
+import CyclingText from '@/components/CyclingText';
 
 const InsuranceAgencyPage = () => {
   return (
@@ -12,12 +13,19 @@ const InsuranceAgencyPage = () => {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="w-full bg-cover bg-center relative" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80')", height: "500px" }}>
-          <div className="absolute inset-0 bg-fantom-navy/60"></div>
+        <section className="w-full bg-cover bg-center relative" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80')", height: "500px" }}>
+          <div className="absolute inset-0 bg-black/60"></div>
           <div className="container mx-auto px-4 md:px-6 h-full flex items-center relative z-10">
             <div className="max-w-3xl">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-white mb-4">
-                Secure Today. Smile Tomorrow.
+                <CyclingText 
+                  textOptions={[
+                    "Secure Today. Smile Tomorrow.",
+                    "Protect What Matters Most.",
+                    "Insurance That Works For You.",
+                    "Peace of Mind, Guaranteed."
+                  ]}
+                />
               </h1>
               <h2 className="text-xl md:text-2xl text-white mb-4">
                 More Than Loans — We've Got You Covered.
@@ -186,8 +194,8 @@ const InsuranceAgencyPage = () => {
         </section>
 
         {/* Contact Support Section */}
-        <section className="py-16 bg-cover bg-center relative" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80')` }}>
-          <div className="absolute inset-0 bg-fantom-navy/70"></div>
+        <section className="py-16 bg-cover bg-center relative" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80')` }}>
+          <div className="absolute inset-0 bg-black/70"></div>
           <div className="container mx-auto px-4 md:px-6 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
               <h2 className="text-3xl font-bold text-white mb-6">Speak to Our Insurance Specialist</h2>
