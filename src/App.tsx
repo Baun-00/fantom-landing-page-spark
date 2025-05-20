@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import CompanyPage from "./pages/CompanyPage";
 import InsuranceAgencyPage from "./pages/InsuranceAgencyPage";
 import LogbookLoansPage from "./pages/LogbookLoansPage";
+import BlogPage from "./pages/BlogPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -33,7 +34,7 @@ const App = () => (
           
           {/* Regular routes */}
           <Route path="/cars4sale" element={<NotFound />} />
-          <Route path="/blog" element={<NotFound />} />
+          <Route path="/blog" element={<BlogPage />} />
           <Route path="/resources" element={<NotFound />} />
           <Route path="/contact" element={<NotFound />} />
           <Route path="/about" element={<CompanyPage />} />

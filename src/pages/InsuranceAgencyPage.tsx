@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -13,7 +12,7 @@ const InsuranceAgencyPage = () => {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="w-full bg-cover bg-center relative" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80')", height: "500px" }}>
+        <section className="w-full bg-cover bg-center relative" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80')", height: "500px" }}>
           <div className="absolute inset-0 bg-black/60"></div>
           <div className="container mx-auto px-4 md:px-6 h-full flex items-center relative z-10">
             <div className="max-w-3xl">
@@ -25,6 +24,7 @@ const InsuranceAgencyPage = () => {
                     "Insurance That Works For You.",
                     "Peace of Mind, Guaranteed."
                   ]}
+                  interval={5000}
                 />
               </h1>
               <h2 className="text-xl md:text-2xl text-white mb-4">
@@ -193,8 +193,8 @@ const InsuranceAgencyPage = () => {
           </div>
         </section>
 
-        {/* Contact Support Section */}
-        <section className="py-16 bg-cover bg-center relative" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1560520031-3a4dc4e9de0c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1567&q=80')` }}>
+        {/* Contact Support Section - Updated button styles */}
+        <section className="py-16 bg-cover bg-center relative" style={{ backgroundImage: `url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80')` }}>
           <div className="absolute inset-0 bg-black/70"></div>
           <div className="container mx-auto px-4 md:px-6 relative z-10">
             <div className="max-w-4xl mx-auto text-center">
@@ -207,10 +207,16 @@ const InsuranceAgencyPage = () => {
                 <p className="text-white">support@fantomcapital.com</p>
               </div>
               <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-fantom-navy">
+                <Button 
+                  variant="outline" 
+                  className="border-2 border-white text-white hover:bg-white hover:text-fantom-navy font-medium"
+                >
                   Talk to an Advisor
                 </Button>
-                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-fantom-navy">
+                <Button 
+                  variant="outline" 
+                  className="border-2 border-white text-white hover:bg-white hover:text-fantom-navy font-medium"
+                >
                   Request a Callback
                 </Button>
               </div>

@@ -9,21 +9,34 @@ interface CyclingTextProps {
 
 const CyclingText: React.FC<CyclingTextProps> = ({ 
   textOptions, 
-  interval = 3000, 
+  interval = 5000, // Changed default to 5 seconds
   className = "" 
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
   
   useEffect(() => {
+    const transitionTime = 500; // 500ms for fade transition
+    
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % textOptions.length);
+      // Start fade out
+      setIsVisible(false);
+      
+      // Wait for fade out, then change text and fade in
+      setTimeout(() => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % textOptions.length);
+        setIsVisible(true);
+      }, transitionTime);
+      
     }, interval);
     
     return () => clearInterval(timer);
   }, [textOptions, interval]);
 
   return (
-    <span className={`transition-opacity duration-500 ${className}`}>
+    <span 
+      className={`inline-block transition-opacity duration-500 ${isVisible ? 'opacity-100' : 'opacity-0'} ${className}`}
+    >
       {textOptions[currentIndex]}
     </span>
   );

@@ -33,7 +33,7 @@ const LogbookLoansPage = () => {
       
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative bg-cover bg-center py-16 md:py-24" style={{backgroundImage: "url('https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80')"}}>
+        <section className="relative bg-cover bg-center py-16 md:py-24" style={{backgroundImage: "url('https://images.unsplash.com/photo-1583121274602-3e2820c69888?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80')"}}>
           <div className="absolute inset-0 bg-black/60"></div>
           <div className="container mx-auto px-4 md:px-6 relative z-10">
             <div className="flex flex-col md:flex-row items-center">
@@ -46,6 +46,7 @@ const LogbookLoansPage = () => {
                       "Get Cash From Your Car—Own It While You Pay",
                       "Quick Liquidity From Your Vehicle—No Surrender"
                     ]}
+                    interval={5000}
                   />
                 </h1>
                 <p className="text-white text-lg md:text-xl mb-8">
@@ -58,7 +59,7 @@ const LogbookLoansPage = () => {
               
               <div className="w-full md:w-1/2 relative">
                 <img 
-                  src="https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
+                  src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80" 
                   alt="Car financing concept" 
                   className="rounded-lg mx-auto max-w-full h-auto"
                 />
