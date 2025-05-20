@@ -1,210 +1,264 @@
 
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { Search } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import CyclingText from '@/components/CyclingText';
 
-// Blog post type definition
-interface BlogPost {
-  id: number;
-  title: string;
-  excerpt: string;
-  image: string;
-  readTime: number;
-  date: string;
-  slug: string;
-}
-
-// Featured blog post with hero display
-const FeaturedBlogPost = ({ post }: { post: BlogPost }) => {
-  return (
-    <div className="mb-12">
-      <div className="relative overflow-hidden rounded-lg">
-        <img 
-          src={post.image} 
-          alt={post.title} 
-          className="w-full h-[300px] md:h-[400px] object-cover"
-        />
-        <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black to-transparent">
-          <h2 className="text-white text-2xl md:text-3xl font-bold mb-2">{post.title}</h2>
-          <p className="text-white mb-4">{post.excerpt}</p>
-          <Button 
-            className="bg-fantom-green text-white hover:bg-fantom-green/90"
-            asChild
-          >
-            <Link to={`/blog/${post.slug}`}>Read More</Link>
-          </Button>
-        </div>
-      </div>
-      <div className="flex items-center text-sm text-gray-500 mt-2">
-        <span>{post.readTime} Min</span>
-        <span className="mx-2">•</span>
-        <span>{post.date}</span>
-      </div>
-    </div>
-  );
-};
-
-// Blog post card for the grid
-const BlogPostCard = ({ post }: { post: BlogPost }) => {
-  return (
-    <div className="border-t border-gray-200 pt-4 pb-8">
-      <div className="flex flex-col md:flex-row gap-4">
-        <div className="w-full md:w-1/3">
-          <img 
-            src={post.image} 
-            alt={post.title} 
-            className="w-full h-32 object-cover rounded-lg"
-          />
-        </div>
-        <div className="w-full md:w-2/3">
-          <div className="flex items-center text-sm text-gray-500 mb-2">
-            <span>{post.readTime} Min</span>
-            <span className="mx-2">•</span>
-            <span>{post.date}</span>
-          </div>
-          <h3 className="text-xl font-bold text-fantom-navy mb-2">
-            <Link to={`/blog/${post.slug}`} className="hover:text-fantom-green transition-colors">
-              {post.title}
-            </Link>
-          </h3>
-          <p className="text-gray-600 mb-3">{post.excerpt}</p>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-// Main Blog Page Component
 const BlogPage = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
   
-  // Sample blog posts data
-  const blogPosts: BlogPost[] = [
+  // Featured blog posts (these would typically come from an API)
+  const featuredPosts = [
     {
       id: 1,
-      title: "5 Things to Know Before Applying for a Logbook Loan",
-      excerpt: "Planning to apply for a logbook loan? Here's what most people overlook—and how to get the best terms.",
-      image: "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
-      readTime: 4,
-      date: "April 24, 2025",
-      slug: "things-to-know-logbook-loan"
+      title: "Why Bundling Insurance with Your Loan Is a Smart Move",
+      excerpt: "Discover how combining insurance with your loan can provide financial protection and peace of mind.",
+      image: "/lovable-uploads/8a097af9-f2fb-47d1-ab1d-f5ebfdfbce7c.png",
+      slug: "bundling-insurance-with-loan",
+      category: "Insurance",
+      date: "April 24, 2023"
     },
     {
       id: 2,
-      title: "Why Bundling Insurance with Your Loan Is a Smart Move",
-      excerpt: "Insurance might sound optional—until it's not. Here's how it protects both your assets and your peace of mind.",
-      image: "https://images.unsplash.com/photo-1556742111-a301076d9d18?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
-      readTime: 4,
-      date: "April 24, 2025",
-      slug: "bundling-insurance-loan"
+      title: "5 Ways to Improve Your Loan Eligibility",
+      excerpt: "Learn practical steps to increase your chances of loan approval and secure better terms.",
+      image: "/lovable-uploads/70d494f9-9b20-4c29-b3d7-6e1accc8d54b.png",
+      slug: "improve-loan-eligibility",
+      category: "Loans",
+      date: "May 15, 2023"
     },
     {
       id: 3,
-      title: "How to Save Money on Your Auto Insurance",
-      excerpt: "These practical tips can help you lower your monthly premiums without sacrificing coverage.",
-      image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
-      readTime: 5,
-      date: "April 22, 2025",
-      slug: "save-money-auto-insurance"
+      title: "Understanding Logbook Loans: A Complete Guide",
+      excerpt: "Everything you need to know about logbook loans and how they can help in financial emergencies.",
+      image: "/lovable-uploads/df29c2f1-4e43-488a-9cde-d1471917c7d4.png",
+      slug: "logbook-loans-guide",
+      category: "Logbook Loans",
+      date: "June 8, 2023"
+    }
+  ];
+  
+  // Regular blog posts
+  const blogPosts = [
+    {
+      id: 1,
+      title: "How to Build Credit with a Small Loan",
+      excerpt: "Strategic borrowing can help establish or rebuild your credit score. Learn how small loans can make a big impact.",
+      image: "/lovable-uploads/c0a472e6-db68-4341-b87e-80938a59e22d.png",
+      slug: "build-credit-with-small-loan",
+      category: "Credit Score",
+      date: "July 12, 2023"
+    },
+    {
+      id: 2,
+      title: "Car Insurance: What's Mandatory vs. What's Recommended",
+      excerpt: "Understand the difference between required and optional car insurance coverages to make informed decisions.",
+      image: "/lovable-uploads/b347dcbf-1702-4575-881d-0ead96b1289e.png",
+      slug: "car-insurance-guide",
+      category: "Insurance",
+      date: "August 3, 2023"
+    },
+    {
+      id: 3,
+      title: "Business Loans vs Personal Loans: The Key Differences",
+      excerpt: "Choosing the right type of loan can save you money and headaches. Learn the pros and cons of each option.",
+      image: "/lovable-uploads/806a89f8-ca56-4c99-95b4-d6ac49376475.png",
+      slug: "business-vs-personal-loans",
+      category: "Loans",
+      date: "August 24, 2023"
     },
     {
       id: 4,
-      title: "Understanding Different Types of Business Loans",
-      excerpt: "From startup capital to expansion funding, learn which loan type fits your business needs.",
-      image: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
-      readTime: 6,
-      date: "April 20, 2025",
-      slug: "types-business-loans"
+      title: "Emergency Funds: How Much Is Enough?",
+      excerpt: "Building an emergency fund is essential, but how do you know when you've saved enough? Get expert advice.",
+      image: "/lovable-uploads/d040e3cb-e8ca-412a-9d19-4aea56d4770a.png",
+      slug: "emergency-funds-guide",
+      category: "Savings",
+      date: "September 11, 2023"
     },
     {
       id: 5,
-      title: "Building Credit: Where to Start When You Have None",
-      excerpt: "Everyone starts somewhere. Here's your roadmap to establishing good credit from scratch.",
-      image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80",
-      readTime: 4,
-      date: "April 18, 2025",
-      slug: "building-credit-from-scratch"
+      title: "Common Insurance Myths Debunked",
+      excerpt: "Separate fact from fiction with our comprehensive look at insurance misconceptions that could be costing you.",
+      image: "/lovable-uploads/68ad44f7-db28-47d3-9073-3d47411d671b.png",
+      slug: "insurance-myths-debunked",
+      category: "Insurance",
+      date: "October 5, 2023"
+    },
+    {
+      id: 6,
+      title: "How to Read Your Loan Agreement Like a Pro",
+      excerpt: "Don't get caught by surprise terms. Learn to understand the fine print in your loan agreement with this guide.",
+      image: "/lovable-uploads/1de66978-7178-4344-b2bf-0042190df24a.png",
+      slug: "read-loan-agreement",
+      category: "Loans",
+      date: "November 17, 2023"
     }
   ];
-
-  // Blog post hero rotation effect
+  
+  // Filter posts based on search query
+  const filteredPosts = blogPosts.filter(post => 
+    post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    post.category.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  
+  // Auto-rotate featured posts
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentHeroIndex((prevIndex) => (prevIndex + 1) % 3); // Only rotate through first 3 posts
-    }, 7000); // 7 seconds per slide
+      setCurrentSlide((prev) => (prev + 1) % featuredPosts.length);
+    }, 7000);
     
     return () => clearInterval(interval);
-  }, []);
-
-  // Get the current featured post
-  const featuredPost = blogPosts[currentHeroIndex];
+  }, [featuredPosts.length]);
   
-  // Filter blog posts by search term
-  const filteredPosts = searchTerm
-    ? blogPosts.filter(post => 
-        post.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
-        post.excerpt.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    : blogPosts;
-
+  // Handle search input
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+  };
+  
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex flex-col min-h-screen">
       <Navbar />
       
-      <main className="flex-1">
-        {/* Blog Header */}
-        <section className="py-12 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-8">
-              <h1 className="text-3xl md:text-5xl font-display font-bold text-fantom-navy mb-4">
-                Learn. Plan. Prosper.
-              </h1>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                From loan tips to insurance insights, we share ideas to help you grow
-                financially and stay ahead.
-              </p>
-            </div>
-            
-            {/* Search Bar */}
-            <div className="max-w-xl mx-auto mb-12 relative">
-              <div className="relative">
-                <Input
-                  type="text"
-                  placeholder="Search articles..."
-                  className="pl-10 py-6 w-full rounded-md"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-              </div>
-            </div>
-            
-            {/* Featured Post Slider */}
-            <FeaturedBlogPost post={featuredPost} />
-            
-            {/* Recent Articles */}
-            <div className="mt-12">
-              <h2 className="text-2xl font-bold mb-6">Recent Articles</h2>
-              <div className="space-y-0">
-                {filteredPosts.map(post => (
-                  <BlogPostCard key={post.id} post={post} />
-                ))}
-              </div>
-              
-              {/* Load More Button */}
-              <div className="text-center mt-12">
-                <Button className="bg-fantom-green text-white hover:bg-fantom-green/90 px-8">
-                  Load More
-                </Button>
+      {/* Hero section with rotating featured posts */}
+      <section className="relative w-full">
+        {featuredPosts.map((post, index) => (
+          <div
+            key={post.id}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+            }`}
+            style={{
+              backgroundImage: `url(${post.image})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          >
+            <div className="absolute inset-0 bg-black/60"></div>
+            <div className="container mx-auto px-4 py-24 md:py-36 relative z-10">
+              <div className="max-w-3xl">
+                <span className="inline-block px-3 py-1 bg-fantom-green text-white text-sm font-medium rounded-full mb-4">
+                  {post.category}
+                </span>
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
+                  {post.title}
+                </h1>
+                <p className="text-white/80 text-lg mb-6">
+                  {post.excerpt}
+                </p>
+                <div className="flex items-center text-white/70 text-sm mb-6">
+                  <span>{post.date}</span>
+                </div>
+                <Link to={`/blog/${post.slug}`}>
+                  <Button 
+                    className="bg-fantom-green hover:bg-fantom-green/90 text-white"
+                  >
+                    Read Article
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
-        </section>
+        ))}
+        
+        {/* Slide indicators */}
+        <div className="absolute bottom-6 left-0 right-0 z-20 flex justify-center space-x-2">
+          {featuredPosts.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`w-3 h-3 rounded-full transition-colors ${
+                index === currentSlide ? 'bg-fantom-green' : 'bg-white/50'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </section>
+      
+      {/* Blog content */}
+      <main className="flex-grow">
+        <div className="container mx-auto px-4 py-16">
+          {/* Blog header with search */}
+          <div className="mb-12 flex flex-col md:flex-row md:items-center md:justify-between">
+            <div className="mb-6 md:mb-0">
+              <h2 className="text-3xl font-bold text-fantom-navy mb-2">
+                <CyclingText 
+                  textOptions={[
+                    "Fantom Blog",
+                    "Financial Insights",
+                    "Money Matters",
+                    "Loan & Insurance Tips",
+                    "Financial Education"
+                  ]}
+                  interval={5000}
+                />
+              </h2>
+              <p className="text-gray-600">Stay informed with the latest financial news and advice</p>
+            </div>
+            <div className="relative w-full md:w-64">
+              <Input
+                type="text"
+                placeholder="Search articles..."
+                value={searchQuery}
+                onChange={handleSearchChange}
+                className="pl-10 pr-4 w-full"
+              />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            </div>
+          </div>
+          
+          {/* Blog posts grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredPosts.length > 0 ? (
+              filteredPosts.map(post => (
+                <Link
+                  key={post.id}
+                  to={`/blog/${post.slug}`}
+                  className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <div className="aspect-video bg-gray-100 overflow-hidden">
+                    <img 
+                      src={post.image} 
+                      alt={post.title} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-sm font-medium text-fantom-green">{post.category}</span>
+                      <span className="text-xs text-gray-500">{post.date}</span>
+                    </div>
+                    <h3 className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-fantom-green transition-colors">
+                      {post.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm line-clamp-3">{post.excerpt}</p>
+                  </div>
+                </Link>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-12">
+                <h3 className="text-xl font-medium text-gray-700 mb-2">No articles found</h3>
+                <p className="text-gray-500">Try adjusting your search criteria</p>
+              </div>
+            )}
+          </div>
+          
+          {/* Pagination or load more */}
+          {filteredPosts.length > 0 && (
+            <div className="mt-12 text-center">
+              <Button variant="outline" className="border-fantom-navy text-fantom-navy hover:bg-fantom-navy hover:text-white">
+                Load More Articles
+              </Button>
+            </div>
+          )}
+        </div>
       </main>
       
       <Footer />
