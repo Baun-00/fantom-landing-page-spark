@@ -12,6 +12,7 @@ import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
 import ResourcesPage from "./pages/ResourcesPage";
 import ContactPage from "./pages/ContactPage";
+import Cars4SalePage from "./pages/Cars4SalePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -36,7 +37,7 @@ const App = () => (
           <Route path="/services/logbook-loans" element={<LogbookLoansPage />} />
           
           {/* Regular routes */}
-          <Route path="/cars4sale" element={<NotFound />} />
+          <Route path="/cars4sale" element={<Cars4SalePage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />
           <Route path="/resources" element={<ResourcesPage />} />
