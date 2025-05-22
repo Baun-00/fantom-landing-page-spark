@@ -18,7 +18,7 @@ const BlogPage = () => {
       id: 1,
       title: "Why Bundling Insurance with Your Loan Is a Smart Move",
       excerpt: "Discover how combining insurance with your loan can provide financial protection and peace of mind.",
-      image: "/lovable-uploads/8a097af9-f2fb-47d1-ab1d-f5ebfdfbce7c.png",
+      image: "/images/blog/insurance-bundling.jpg",
       slug: "bundling-insurance-with-loan",
       category: "Insurance",
       date: "April 24, 2023"
@@ -27,7 +27,7 @@ const BlogPage = () => {
       id: 2,
       title: "5 Ways to Improve Your Loan Eligibility",
       excerpt: "Learn practical steps to increase your chances of loan approval and secure better terms.",
-      image: "/lovable-uploads/70d494f9-9b20-4c29-b3d7-6e1accc8d54b.png",
+      image: "/images/blog/loan-eligibility.jpg",
       slug: "improve-loan-eligibility",
       category: "Loans",
       date: "May 15, 2023"
@@ -36,7 +36,7 @@ const BlogPage = () => {
       id: 3,
       title: "Understanding Logbook Loans: A Complete Guide",
       excerpt: "Everything you need to know about logbook loans and how they can help in financial emergencies.",
-      image: "/lovable-uploads/df29c2f1-4e43-488a-9cde-d1471917c7d4.png",
+      image: "/images/blog/logbook-loans.jpg",
       slug: "logbook-loans-guide",
       category: "Logbook Loans",
       date: "June 8, 2023"
@@ -49,7 +49,7 @@ const BlogPage = () => {
       id: 1,
       title: "How to Build Credit with a Small Loan",
       excerpt: "Strategic borrowing can help establish or rebuild your credit score. Learn how small loans can make a big impact.",
-      image: "/lovable-uploads/c0a472e6-db68-4341-b87e-80938a59e22d.png",
+      image: "/images/blog/build-credit.jpg",
       slug: "build-credit-with-small-loan",
       category: "Credit Score",
       date: "July 12, 2023"
@@ -58,7 +58,7 @@ const BlogPage = () => {
       id: 2,
       title: "Car Insurance: What's Mandatory vs. What's Recommended",
       excerpt: "Understand the difference between required and optional car insurance coverages to make informed decisions.",
-      image: "/lovable-uploads/b347dcbf-1702-4575-881d-0ead96b1289e.png",
+      image: "/images/blog/car-insurance.jpg",
       slug: "car-insurance-guide",
       category: "Insurance",
       date: "August 3, 2023"
@@ -67,7 +67,7 @@ const BlogPage = () => {
       id: 3,
       title: "Business Loans vs Personal Loans: The Key Differences",
       excerpt: "Choosing the right type of loan can save you money and headaches. Learn the pros and cons of each option.",
-      image: "/lovable-uploads/806a89f8-ca56-4c99-95b4-d6ac49376475.png",
+      image: "/images/blog/business-vs-personal-loans.jpg",
       slug: "business-vs-personal-loans",
       category: "Loans",
       date: "August 24, 2023"
@@ -76,7 +76,7 @@ const BlogPage = () => {
       id: 4,
       title: "Emergency Funds: How Much Is Enough?",
       excerpt: "Building an emergency fund is essential, but how do you know when you've saved enough? Get expert advice.",
-      image: "/lovable-uploads/d040e3cb-e8ca-412a-9d19-4aea56d4770a.png",
+      image: "/images/blog/emergency-fund.jpg",
       slug: "emergency-funds-guide",
       category: "Savings",
       date: "September 11, 2023"
@@ -85,7 +85,7 @@ const BlogPage = () => {
       id: 5,
       title: "Common Insurance Myths Debunked",
       excerpt: "Separate fact from fiction with our comprehensive look at insurance misconceptions that could be costing you.",
-      image: "/lovable-uploads/68ad44f7-db28-47d3-9073-3d47411d671b.png",
+      image: "/images/blog/insurance-myths.jpg",
       slug: "insurance-myths-debunked",
       category: "Insurance",
       date: "October 5, 2023"
@@ -94,7 +94,7 @@ const BlogPage = () => {
       id: 6,
       title: "How to Read Your Loan Agreement Like a Pro",
       excerpt: "Don't get caught by surprise terms. Learn to understand the fine print in your loan agreement with this guide.",
-      image: "/lovable-uploads/1de66978-7178-4344-b2bf-0042190df24a.png",
+      image: "/images/blog/loan-agreement.jpg",
       slug: "read-loan-agreement",
       category: "Loans",
       date: "November 17, 2023"
@@ -127,7 +127,7 @@ const BlogPage = () => {
       <Navbar />
       
       {/* Hero section with rotating featured posts */}
-      <section className="relative w-full">
+      <section className="relative w-full h-[500px] md:h-[600px]">
         {featuredPosts.map((post, index) => (
           <div
             key={post.id}
@@ -141,7 +141,7 @@ const BlogPage = () => {
             }}
           >
             <div className="absolute inset-0 bg-black/60"></div>
-            <div className="container mx-auto px-4 py-24 md:py-36 relative z-10">
+            <div className="container mx-auto px-4 py-24 md:py-36 relative z-10 h-full flex items-center">
               <div className="max-w-3xl">
                 <span className="inline-block px-3 py-1 bg-fantom-green text-white text-sm font-medium rounded-full mb-4">
                   {post.category}
@@ -183,7 +183,7 @@ const BlogPage = () => {
       </section>
       
       {/* Blog content */}
-      <main className="flex-grow">
+      <main className="flex-grow bg-gray-50">
         <div className="container mx-auto px-4 py-16">
           {/* Blog header with search */}
           <div className="mb-12 flex flex-col md:flex-row md:items-center md:justify-between">
