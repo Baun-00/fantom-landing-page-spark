@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>404 - Page Not Found</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+
+  body {
+    margin: 0;
+    background: #0f172a; /* Dark background */
+    color: #d0f0fd; /* Light blue text */
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  h1 {
+    font-size: 12rem;
+    margin: 0;
+    animation: bounce 2s infinite;
+    color: #22c55e; /* Bright green */
+    text-shadow: 0 0 15px #22c55e, 0 0 30px #3b82f6; /* green + blue glow */
+  }
+
+  p {
+    font-size: 1.8rem;
+    margin: 1rem 0 3rem;
+    opacity: 0;
+    animation: fadeIn 2s ease forwards 0.5s;
+  }
+
+  a {
+    padding: 1rem 3rem;
+    background: #3b82f6; /* Blue */
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.6);
+    opacity: 0;
+    animation: fadeIn 2s ease forwards 1.2s;
+    transition: background 0.3s ease;
+  }
+  a:hover {
+    background: #2563eb; /* Darker blue */
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-40px); }
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+</style>
+</head>
+<body>
+  <h1>404</h1>
+  <p>Oops! The page you’re looking for doesn’t exist.</p>
+  <a href="/fantom-landing-page-spark/">Back to Home</a>
+</body>
+</html>
