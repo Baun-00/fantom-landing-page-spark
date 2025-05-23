@@ -17,6 +17,10 @@ import NotFound from "./pages/NotFound";
 import SignupPage from "./pages/SignupPage";
 import LoanApplicationPage from "./pages/LoanApplicationPage";
 import DocumentUploadMpesaPage from "./pages/DocumentUploadMpesaPage";
+import DocumentUploadBusinessPermitPage from "./pages/DocumentUploadBusinessPermitPage";
+import DocumentUploadLogbookPage from "./pages/DocumentUploadLogbookPage";
+import DocumentUploadProformaInvoicePage from "./pages/DocumentUploadProformaInvoicePage";
+import ApplicationSubmittedPage from "./pages/ApplicationSubmittedPage";
 
 const queryClient = new QueryClient();
 
@@ -52,6 +56,10 @@ const App = () => (
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/loan-application" element={<LoanApplicationPage />} />
           <Route path="/documents-upload/mpesa" element={<DocumentUploadMpesaPage />} />
+          <Route path="/documents-upload/business-permit" element={<DocumentUploadBusinessPermitPage />} />
+          <Route path="/documents-upload/logbook" element={<DocumentUploadLogbookPage />} />
+          <Route path="/documents-upload/proforma-invoice" element={<DocumentUploadProformaInvoicePage />} />
+          <Route path="/application-submitted" element={<ApplicationSubmittedPage />} />
           
           {/* Legacy route for direct Media access - keep it for compatibility */}
           <Route path="/media" element={<MediaPage />} />

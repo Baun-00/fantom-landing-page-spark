@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -20,6 +20,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { toast } from '@/components/ui/sonner';
+import { useLoanApplication } from '@/hooks/use-loan-application';
 
 // Define form validation schema
 const formSchema = z.object({
@@ -39,21 +40,19 @@ type FormValues = z.infer<typeof formSchema>;
 
 const DocumentUploadMpesaPage = () => {
   const navigate = useNavigate();
+  const { application, updateDocuments } = useLoanApplication();
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   
   // Check if user completed previous steps
-  React.useEffect(() => {
-    const step1Data = sessionStorage.getItem("signupStep1");
-    const step2Data = sessionStorage.getItem("signupStep2");
-    
-    if (!step1Data || !step2Data) {
+  useEffect(() => {
+    if (!application.personalInfo || !application.loanDetails) {
       toast.error("Please complete the previous steps first");
       navigate('/signup');
     }
-  }, [navigate]);
+  }, [application, navigate]);
   
-  // Initialize form
+  // Initialize form with existing data if available
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -62,11 +61,11 @@ const DocumentUploadMpesaPage = () => {
   });
 
   const onSubmit = (data: FormValues) => {
-    // Store form data in session storage
-    sessionStorage.setItem("signupStep3_mpesa", JSON.stringify({
+    // Update application state
+    updateDocuments({
       mpesaStatement: selectedFile ? selectedFile.name : null,
-      otp: data.otp,
-    }));
+      mpesaOtp: data.otp,
+    });
     
     toast.success("M-PESA statement uploaded successfully");
     navigate("/documents-upload/business-permit");

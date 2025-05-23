@@ -9,7 +9,6 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import {
   Form,
@@ -24,70 +23,57 @@ import { useLoanApplication } from '@/hooks/use-loan-application';
 
 // Define form validation schema
 const formSchema = z.object({
-  fullName: z.string().min(3, {
-    message: "Full name must be at least 3 characters.",
-  }),
-  nationalId: z.string().min(5, {
-    message: "National ID must be at least 5 characters.",
-  }),
-  phone: z.string().min(10, {
-    message: "Phone number must be at least 10 digits.",
-  }),
-  kraPin: z.string().min(4, {
-    message: "KRA PIN must be at least 4 characters.",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address.",
-  }),
-  passportPhoto: z.instanceof(FileList).refine((files) => files.length > 0, {
-    message: "Passport photo is required.",
+  logbook: z.instanceof(FileList).refine((files) => files.length > 0, {
+    message: "Vehicle logbook is required.",
   }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
-const SignupPage = () => {
+const DocumentUploadLogbookPage = () => {
   const navigate = useNavigate();
-  const { updatePersonalInfo, application } = useLoanApplication();
+  const { application, updateDocuments } = useLoanApplication();
   const [isDragging, setIsDragging] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   
-  // Initialize form with existing data if available
+  // Check if user completed previous steps and if this step is needed
+  useEffect(() => {
+    if (!application.personalInfo || !application.loanDetails || !application.documents.businessPermit) {
+      toast.error("Please complete the previous steps first");
+      navigate('/signup');
+      return;
+    }
+    
+    // If not a logbook loan, redirect to the appropriate page
+    if (application.loanDetails.loanType !== "Logbook loan") {
+      if (application.loanDetails.loanType === "Asset financing") {
+        navigate('/documents-upload/proforma-invoice');
+      } else {
+        navigate('/application-submitted');
+      }
+    }
+  }, [application, navigate]);
+  
+  // Initialize form
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      fullName: "",
-      nationalId: "",
-      phone: "",
-      kraPin: "",
-      email: "",
-    },
   });
-  
-  // Pre-fill form if data exists
-  useEffect(() => {
-    if (application.personalInfo) {
-      form.setValue('fullName', application.personalInfo.fullName);
-      form.setValue('nationalId', application.personalInfo.nationalId);
-      form.setValue('phone', application.personalInfo.phone);
-      form.setValue('kraPin', application.personalInfo.kraPin);
-      form.setValue('email', application.personalInfo.email);
-    }
-  }, [application.personalInfo, form]);
 
   const onSubmit = (data: FormValues) => {
-    // Update application state
-    updatePersonalInfo({
-      fullName: data.fullName,
-      nationalId: data.nationalId,
-      phone: data.phone,
-      kraPin: data.kraPin,
-      email: data.email,
-      passportPhoto: selectedFile ? selectedFile.name : null,
+    // Update application state with logbook
+    updateDocuments({
+      logbook: selectedFile ? selectedFile.name : null,
     });
     
-    toast.success("Personal information saved");
-    navigate("/loan-application");
+    toast.success("Vehicle logbook uploaded successfully");
+    
+    // Navigate to appropriate next step
+    if (application.loanDetails?.loanType === "Asset financing") {
+      navigate("/documents-upload/proforma-invoice");
+    } else {
+      // For other loan types, proceed to submission success page
+      navigate("/application-submitted");
+    }
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -111,11 +97,11 @@ const SignupPage = () => {
 
   const handleFileSelect = (file: File) => {
     // Validate file type and size
-    const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'];
+    const validTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/jpg'];
     const maxSize = 5 * 1024 * 1024; // 5MB
     
     if (!validTypes.includes(file.type)) {
-      toast.error("Please upload a valid file type (JPEG, PNG, or PDF)");
+      toast.error("Please upload a valid file type (PDF, JPEG, or PNG)");
       return;
     }
     
@@ -125,7 +111,7 @@ const SignupPage = () => {
     }
     
     setSelectedFile(file);
-    form.setValue("passportPhoto", Object.assign(new DataTransfer().files, [file]));
+    form.setValue("logbook", Object.assign(new DataTransfer().files, [file]));
   };
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -147,86 +133,24 @@ const SignupPage = () => {
         <div className="container mx-auto px-4 py-12">
           <Card className="max-w-4xl mx-auto border border-fantom-green shadow-lg">
             <CardContent className="p-8">
-              <h1 className="text-3xl font-bold text-center mb-8">1. SIGN UP (Account Creation)</h1>
+              <h1 className="text-3xl font-bold text-center mb-4">3. DOCUMENT UPLOAD</h1>
+              <h2 className="text-xl font-semibold text-center mb-8">Required Supporting Documents</h2>
               
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                  <FormField
-                    control={form.control}
-                    name="fullName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Full name</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter full name" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold">3. Logbook (Only for Logbook Loan Applicants)</h3>
+                    <p className="text-sm text-gray-700">
+                      Upload your original logbook, clearly showing your name and vehicle details.
+                    </p>
+                  </div>
                   
                   <FormField
                     control={form.control}
-                    name="nationalId"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>National ID Number</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter ID number" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="phone"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Phone Number</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter phone number" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="kraPin"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>KRA PIN</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter KRA PIN" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="email"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>EMAIL address</FormLabel>
-                        <FormControl>
-                          <Input placeholder="Enter email address" type="email" {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="passportPhoto"
+                    name="logbook"
                     render={() => (
                       <FormItem>
-                        <FormLabel>Upload Passport photo</FormLabel>
+                        <FormLabel>Upload Logbook</FormLabel>
                         <FormControl>
                           <div
                             className={`border-2 border-dashed rounded-md p-6 text-center ${
@@ -250,7 +174,7 @@ const SignupPage = () => {
                                 id="file-upload"
                                 type="file"
                                 className="hidden"
-                                accept="image/jpeg,image/png,image/jpg,application/pdf"
+                                accept=".pdf,.jpg,.jpeg,.png"
                                 onChange={handleFileInputChange}
                               />
                             </div>
@@ -277,7 +201,7 @@ const SignupPage = () => {
                       type="button"
                       variant="outline"
                       className="bg-gray-200 hover:bg-gray-300 border-gray-300"
-                      onClick={() => navigate('/')}
+                      onClick={() => navigate('/documents-upload/business-permit')}
                     >
                       Back
                     </Button>
@@ -300,4 +224,4 @@ const SignupPage = () => {
   );
 };
 
-export default SignupPage;
+export default DocumentUploadLogbookPage;

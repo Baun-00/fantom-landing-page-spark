@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -26,6 +26,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from '@/components/ui/sonner';
+import { useLoanApplication } from '@/hooks/use-loan-application';
 
 // Define form validation schema
 const formSchema = z.object({
@@ -52,40 +53,34 @@ type FormValues = z.infer<typeof formSchema>;
 
 const LoanApplicationPage = () => {
   const navigate = useNavigate();
+  const { updateLoanDetails, application } = useLoanApplication();
   
   // Check if user completed step 1
-  React.useEffect(() => {
-    const step1Data = sessionStorage.getItem("signupStep1");
-    if (!step1Data) {
+  useEffect(() => {
+    if (!application.personalInfo) {
       toast.error("Please complete the personal information form first");
       navigate('/signup');
     }
-  }, [navigate]);
+  }, [application, navigate]);
   
-  // Initialize form
+  // Initialize form with existing data if available
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      loanType: "",
-      loanAmount: "",
-      purpose: "",
-      businessType: "",
-      businessPeriod: "",
+      loanType: application.loanDetails?.loanType || "",
+      loanAmount: application.loanDetails?.loanAmount || "",
+      purpose: application.loanDetails?.purpose || "",
+      businessType: application.loanDetails?.businessType || "",
+      businessPeriod: application.loanDetails?.businessPeriod || "",
     },
   });
 
   const onSubmit = (data: FormValues) => {
-    // Store form data in session storage
-    sessionStorage.setItem("signupStep2", JSON.stringify(data));
+    // Update application state
+    updateLoanDetails(data);
     
     toast.success("Loan application details saved");
-    
-    // Navigate based on loan type for conditional steps
-    if (data.loanType === "Logbook loan") {
-      navigate("/documents-upload/mpesa");
-    } else {
-      navigate("/documents-upload/mpesa");
-    }
+    navigate("/documents-upload/mpesa");
   };
 
   return (

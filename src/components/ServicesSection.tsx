@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Building, House, Key } from "lucide-react";
+import ApplyLoanButton from './ApplyLoanButton';
 
 const ServicesSection = () => {
   const services = [
@@ -48,7 +49,9 @@ const ServicesSection = () => {
         
         <div className="mt-16 bg-fantom-green rounded-lg p-8 text-center transition-all duration-300 hover:shadow-xl">
           <h3 className="text-2xl font-bold text-white mb-6">Calculate Loan Amount</h3>
-          <Button className="bg-white text-fantom-green hover:bg-gray-100">Apply for a loan</Button>
+          <ApplyLoanButton className="bg-white text-fantom-green hover:bg-gray-100">
+            Apply for a loan
+          </ApplyLoanButton>
         </div>
       </div>
     </section>
