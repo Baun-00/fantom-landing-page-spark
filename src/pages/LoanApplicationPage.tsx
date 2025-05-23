@@ -26,7 +26,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from '@/components/ui/sonner';
-import { useLoanApplication } from '@/hooks/use-loan-application';
+import { useLoanApplication, LoanDetails } from '@/hooks/use-loan-application';
 
 // Define form validation schema
 const formSchema = z.object({
@@ -76,8 +76,17 @@ const LoanApplicationPage = () => {
   });
 
   const onSubmit = (data: FormValues) => {
-    // Update application state
-    updateLoanDetails(data);
+    // Ensure all fields are properly set as non-optional
+    const loanDetails: LoanDetails = {
+      loanType: data.loanType,
+      loanAmount: data.loanAmount,
+      purpose: data.purpose,
+      businessType: data.businessType,
+      businessPeriod: data.businessPeriod,
+    };
+    
+    // Update application state with properly typed data
+    updateLoanDetails(loanDetails);
     
     toast.success("Loan application details saved");
     navigate("/documents-upload/mpesa");
