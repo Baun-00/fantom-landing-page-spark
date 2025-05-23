@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Menu } from "lucide-react";
 import {
   NavigationMenu,
@@ -42,9 +42,20 @@ ListItem.displayName = "ListItem";
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const handleLoginClick = () => {
+    // This would connect to the login page when it exists
+    // For now we'll take them to signup
+    navigate('/signup');
+  };
+
+  const handleSignupClick = () => {
+    navigate('/signup');
   };
 
   return (
@@ -143,13 +154,26 @@ const Navbar = () => {
               <Link to="/blog" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Blog</Link>
               <Link to="/resources" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Resources</Link>
               <Link to="/contact" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Contact</Link>
+              <Button onClick={handleLoginClick} className="mt-3">Login</Button>
+              <Button onClick={handleSignupClick} className="mt-2 bg-fantom-green">Sign up</Button>
             </div>
           </div>
         )}
         
         <div className="hidden md:flex items-center space-x-3">
-          <Button variant="outline" className="border-fantom-navy text-fantom-navy hover:bg-[#D3E4FD] hover:text-fantom-green transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">Login</Button>
-          <Button className="bg-fantom-green text-white hover:bg-fantom-green/90 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5">Sign up</Button>
+          <Button 
+            variant="outline" 
+            className="border-fantom-navy text-fantom-navy hover:bg-[#D3E4FD] hover:text-fantom-green transition-all duration-300 hover:shadow-md hover:-translate-y-0.5"
+            onClick={handleLoginClick}
+          >
+            Login
+          </Button>
+          <Button 
+            className="bg-fantom-green text-white hover:bg-fantom-green/90 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5" 
+            onClick={handleSignupClick}
+          >
+            Sign up
+          </Button>
         </div>
       </div>
     </nav>
