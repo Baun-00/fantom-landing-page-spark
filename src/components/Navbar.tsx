@@ -55,9 +55,8 @@ const Navbar = () => {
             <img 
               src="/lovable-uploads/f7a3d19f-842a-41b0-a4a8-3134cb88f0b9.png" 
               alt="Fantom Capital Logo" 
-              className="h-10 w-auto transition-transform duration-300 group-hover:scale-105" 
+              className="h-16 w-auto transition-transform duration-300 group-hover:scale-105" 
             />
-            <span className="ml-2 text-xl font-display font-semibold text-fantom-navy transition-colors duration-300 group-hover:text-fantom-green">Fantom Capital</span>
           </Link>
         </div>
         
@@ -124,10 +123,6 @@ const Navbar = () => {
               </NavigationMenuItem>
               
               <NavigationMenuItem>
-                <Link to="/media" className="inline-block text-gray-600 hover:text-fantom-green hover:bg-[#D3E4FD] hover:translate-y-[-2px] hover:shadow-sm transition-all duration-300 rounded-md px-3 py-1.5">Media</Link>
-              </NavigationMenuItem>
-              
-              <NavigationMenuItem>
                 <Link to="/contact" className="inline-block text-gray-600 hover:text-fantom-green hover:bg-[#D3E4FD] hover:translate-y-[-2px] hover:shadow-sm transition-all duration-300 rounded-md px-3 py-1.5">Contact</Link>
               </NavigationMenuItem>
             </NavigationMenuList>
@@ -147,7 +142,6 @@ const Navbar = () => {
               <Link to="/cars4sale" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Cars4sale</Link>
               <Link to="/blog" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Blog</Link>
               <Link to="/resources" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Resources</Link>
-              <Link to="/media" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Media</Link>
               <Link to="/contact" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Contact</Link>
             </div>
           </div>

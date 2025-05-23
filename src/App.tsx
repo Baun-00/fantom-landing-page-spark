@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -45,6 +44,8 @@ const App = () => (
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/about" element={<CompanyPage />} />
           <Route path="/services" element={<NotFound />} />
+          
+          {/* Legacy route for direct Media access - keep it for compatibility */}
           <Route path="/media" element={<MediaPage />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

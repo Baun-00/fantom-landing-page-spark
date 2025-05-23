@@ -40,11 +40,13 @@ jobs:
         run: |
           mkdir -p dist/media
           
-      # Copy placeholder images for now - these will need to be replaced with real assets
+      # Copy media assets without modifying them
       - name: Copy media assets
         run: |
           cp -r public/lovable-uploads/* dist/media/ || true
           cp public/placeholder.svg dist/media/ || true
+          # Preserve existing media files if any
+          cp -r public/media/* dist/media/ || true
           
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.5.0
