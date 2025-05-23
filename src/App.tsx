@@ -13,6 +13,7 @@ import BlogPostPage from "./pages/BlogPostPage";
 import ResourcesPage from "./pages/ResourcesPage";
 import ContactPage from "./pages/ContactPage";
 import Cars4SalePage from "./pages/Cars4SalePage";
+import MediaPage from "./pages/MediaPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,7 +30,7 @@ const App = () => (
           {/* About us dropdown routes */}
           <Route path="/about/company" element={<CompanyPage />} />
           <Route path="/about/impact" element={<NotFound />} />
-          <Route path="/about/media" element={<NotFound />} />
+          <Route path="/about/media" element={<MediaPage />} />
           
           {/* What we do dropdown routes */}
           <Route path="/services/loans" element={<NotFound />} />
@@ -44,6 +45,7 @@ const App = () => (
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/about" element={<CompanyPage />} />
           <Route path="/services" element={<NotFound />} />
+          <Route path="/media" element={<MediaPage />} />
           
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

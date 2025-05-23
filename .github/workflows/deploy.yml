@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -30,10 +32,24 @@ jobs:
 
       - name: Build
         run: npm run build
-        
+        env:
+          NODE_ENV: production
+
+      # Create necessary directories if they don't exist
+      - name: Create directories
+        run: |
+          mkdir -p dist/media
+          
+      # Copy placeholder images for now - these will need to be replaced with real assets
+      - name: Copy media assets
+        run: |
+          cp -r public/lovable-uploads/* dist/media/ || true
+          cp public/placeholder.svg dist/media/ || true
+          
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
           branch: gh-pages
           folder: dist
           clean: true
+          commit-message: "Deploy website with updated media assets"
