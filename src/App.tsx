@@ -14,6 +14,9 @@ import ContactPage from "./pages/ContactPage";
 import Cars4SalePage from "./pages/Cars4SalePage";
 import MediaPage from "./pages/MediaPage";
 import NotFound from "./pages/NotFound";
+import SignupPage from "./pages/SignupPage";
+import LoanApplicationPage from "./pages/LoanApplicationPage";
+import DocumentUploadMpesaPage from "./pages/DocumentUploadMpesaPage";
 
 const queryClient = new QueryClient();
 
@@ -44,6 +47,11 @@ const App = () => (
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/about" element={<CompanyPage />} />
           <Route path="/services" element={<NotFound />} />
+          
+          {/* Loan Application Form Routes */}
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/loan-application" element={<LoanApplicationPage />} />
+          <Route path="/documents-upload/mpesa" element={<DocumentUploadMpesaPage />} />
           
           {/* Legacy route for direct Media access - keep it for compatibility */}
           <Route path="/media" element={<MediaPage />} />
