@@ -39,9 +39,24 @@ const formSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address.",
   }),
-  passportPhoto: z.instanceof(FileList).refine((files) => files.length > 0, {
-    message: "Passport photo is required.",
-  }),
+  // Change this to handle File instead of FileList to fix TypeScript error
+  passportPhoto: z.any()
+    .refine((file) => file instanceof File, {
+      message: "Passport photo is required.",
+    })
+    .refine((file) => {
+      if (!(file instanceof File)) return false;
+      return file.size <= 5 * 1024 * 1024; // 5MB
+    }, {
+      message: "File must be less than 5MB",
+    })
+    .refine((file) => {
+      if (!(file instanceof File)) return false;
+      const validTypes = ['image/jpeg', 'image/png', 'image/jpg', 'application/pdf'];
+      return validTypes.includes(file.type);
+    }, {
+      message: "File must be JPEG, PNG, or PDF",
+    }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
@@ -61,6 +76,7 @@ const SignupPage = () => {
       phone: "",
       kraPin: "",
       email: "",
+      passportPhoto: undefined,
     },
   });
   
@@ -125,7 +141,8 @@ const SignupPage = () => {
     }
     
     setSelectedFile(file);
-    form.setValue("passportPhoto", Object.assign(new DataTransfer().files, [file]));
+    // Update the form value with the File object directly, not a FileList
+    form.setValue("passportPhoto", file, { shouldValidate: true });
   };
 
   const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -224,7 +241,7 @@ const SignupPage = () => {
                   <FormField
                     control={form.control}
                     name="passportPhoto"
-                    render={() => (
+                    render={({ field: { onChange, value, ...fieldProps } }) => (
                       <FormItem>
                         <FormLabel>Upload Passport photo</FormLabel>
                         <FormControl>
@@ -252,6 +269,7 @@ const SignupPage = () => {
                                 className="hidden"
                                 accept="image/jpeg,image/png,image/jpg,application/pdf"
                                 onChange={handleFileInputChange}
+                                {...fieldProps}
                               />
                             </div>
                             

@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,6 +8,8 @@ import Index from "./pages/Index";
 import CompanyPage from "./pages/CompanyPage";
 import InsuranceAgencyPage from "./pages/InsuranceAgencyPage";
 import LogbookLoansPage from "./pages/LogbookLoansPage";
+import LandlordLoansPage from "./pages/LandlordLoansPage";
+import AssetFinancePage from "./pages/AssetFinancePage";
 import BlogPage from "./pages/BlogPage";
 import BlogPostPage from "./pages/BlogPostPage";
 import ResourcesPage from "./pages/ResourcesPage";
@@ -42,6 +45,8 @@ const App = () => (
           <Route path="/services/loans" element={<NotFound />} />
           <Route path="/services/insurance" element={<InsuranceAgencyPage />} />
           <Route path="/services/logbook-loans" element={<LogbookLoansPage />} />
+          <Route path="/services/landlord-loans" element={<LandlordLoansPage />} />
+          <Route path="/services/asset-finance" element={<AssetFinancePage />} />
           
           {/* Regular routes */}
           <Route path="/cars4sale" element={<Cars4SalePage />} />

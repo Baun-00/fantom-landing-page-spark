@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -24,28 +24,26 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from '@/components/ui/select';
 import { toast } from '@/components/ui/sonner';
-import { useLoanApplication, LoanDetails } from '@/hooks/use-loan-application';
+import { useLoanApplication } from '@/hooks/use-loan-application';
 
 // Define form validation schema
 const formSchema = z.object({
   loanType: z.string({
     required_error: "Please select a loan type",
   }),
-  loanAmount: z.string().min(1, {
-    message: "Loan amount is required.",
-  }).refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
-    message: "Amount must be a positive number",
+  loanAmount: z.string({
+    required_error: "Loan amount is required",
   }),
-  purpose: z.string().min(5, {
-    message: "Purpose must be at least 5 characters.",
+  purpose: z.string({
+    required_error: "Purpose is required",
   }),
-  businessType: z.string().min(2, {
-    message: "Business type must be at least 2 characters.",
+  businessType: z.string({
+    required_error: "Business type is required",
   }),
   businessPeriod: z.string({
-    required_error: "Please select a business operation period",
+    required_error: "Business period is required",
   }),
 });
 
@@ -55,40 +53,49 @@ const LoanApplicationPage = () => {
   const navigate = useNavigate();
   const { updateLoanDetails, application } = useLoanApplication();
   
-  // Check if user completed step 1
-  useEffect(() => {
-    if (!application.personalInfo) {
-      toast.error("Please complete the personal information form first");
-      navigate('/signup');
-    }
-  }, [application, navigate]);
-  
   // Initialize form with existing data if available
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      loanType: application.loanDetails?.loanType || "",
-      loanAmount: application.loanDetails?.loanAmount || "",
-      purpose: application.loanDetails?.purpose || "",
-      businessType: application.loanDetails?.businessType || "",
-      businessPeriod: application.loanDetails?.businessPeriod || "",
+      loanType: "",
+      loanAmount: "",
+      purpose: "",
+      businessType: "",
+      businessPeriod: "",
     },
   });
+  
+  // Check if user completed previous step
+  useEffect(() => {
+    if (!application.personalInfo) {
+      toast.error("Please complete your personal information first");
+      navigate('/signup');
+    } else {
+      // Pre-fill form if data exists
+      if (application.loanDetails) {
+        form.setValue('loanType', application.loanDetails.loanType);
+        form.setValue('loanAmount', application.loanDetails.loanAmount);
+        form.setValue('purpose', application.loanDetails.purpose);
+        form.setValue('businessType', application.loanDetails.businessType);
+        form.setValue('businessPeriod', application.loanDetails.businessPeriod);
+      }
+    }
+  }, [application, navigate, form]);
 
   const onSubmit = (data: FormValues) => {
-    // Ensure all fields are properly set as non-optional
-    const loanDetails: LoanDetails = {
+    // Fix TypeScript error by ensuring all required fields are present
+    const loanDetails = {
       loanType: data.loanType,
       loanAmount: data.loanAmount,
       purpose: data.purpose,
       businessType: data.businessType,
       businessPeriod: data.businessPeriod,
     };
-    
-    // Update application state with properly typed data
+
+    // Update application state
     updateLoanDetails(loanDetails);
     
-    toast.success("Loan application details saved");
+    toast.success("Loan details saved");
     navigate("/documents-upload/mpesa");
   };
 
@@ -115,17 +122,20 @@ const LoanApplicationPage = () => {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Loan type</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                        >
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder="Select Loan Type" />
+                              <SelectValue placeholder="Select loan type" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="Logbook loan">Logbook loan</SelectItem>
-                            <SelectItem value="Asset financing">Asset financing</SelectItem>
-                            <SelectItem value="School fee loan">School fee loan</SelectItem>
-                            <SelectItem value="Landlord loans">Landlord loans</SelectItem>
+                            <SelectItem value="Working capital loan">Working Capital Loan</SelectItem>
+                            <SelectItem value="Asset financing">Asset Financing</SelectItem>
+                            <SelectItem value="Logbook loan">Logbook Loan</SelectItem>
+                            <SelectItem value="Supply chain financing">Supply Chain Financing</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />
@@ -138,9 +148,9 @@ const LoanApplicationPage = () => {
                     name="loanAmount"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Loan Amount Requested (KES)</FormLabel>
+                        <FormLabel>Loan Amount (KES)</FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter amount in KES" type="number" min="0" {...field} />
+                          <Input placeholder="Enter loan amount" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -152,9 +162,9 @@ const LoanApplicationPage = () => {
                     name="purpose"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Purpose of the Loan</FormLabel>
+                        <FormLabel>Purpose</FormLabel>
                         <FormControl>
-                          <Input placeholder="e.g., Business expansion, Personal use" {...field} />
+                          <Input placeholder="Enter loan purpose" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -167,9 +177,22 @@ const LoanApplicationPage = () => {
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Business Type</FormLabel>
-                        <FormControl>
-                          <Input placeholder="e.g., Retail, Service" {...field} />
-                        </FormControl>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                        >
+                          <FormControl>
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select business type" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent>
+                            <SelectItem value="Sole proprietorship">Sole Proprietorship</SelectItem>
+                            <SelectItem value="Partnership">Partnership</SelectItem>
+                            <SelectItem value="Limited company">Limited Company</SelectItem>
+                            <SelectItem value="Other">Other</SelectItem>
+                          </SelectContent>
+                        </Select>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -180,18 +203,21 @@ const LoanApplicationPage = () => {
                     name="businessPeriod"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Period of business Operation</FormLabel>
-                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormLabel>How long have you been in business?</FormLabel>
+                        <Select 
+                          onValueChange={field.onChange} 
+                          defaultValue={field.value}
+                        >
                           <FormControl>
                             <SelectTrigger>
-                              <SelectValue placeholder="Select period" />
+                              <SelectValue placeholder="Select time period" />
                             </SelectTrigger>
                           </FormControl>
                           <SelectContent>
-                            <SelectItem value="Less than 6 Months">Less than 6 Months</SelectItem>
-                            <SelectItem value="6 months - 1 year">6 months - 1 year</SelectItem>
-                            <SelectItem value="1 year - 3 years">1 year - 3 years</SelectItem>
-                            <SelectItem value="over 3 years">over 3 years</SelectItem>
+                            <SelectItem value="Less than 1 year">Less than 1 year</SelectItem>
+                            <SelectItem value="1-2 years">1-2 years</SelectItem>
+                            <SelectItem value="3-5 years">3-5 years</SelectItem>
+                            <SelectItem value="5+ years">5+ years</SelectItem>
                           </SelectContent>
                         </Select>
                         <FormMessage />

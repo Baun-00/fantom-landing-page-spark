@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu } from "lucide-react";
+import { Menu, ChevronRight } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -12,6 +12,12 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -40,6 +46,36 @@ const ListItem = React.forwardRef<
 });
 ListItem.displayName = "ListItem";
 
+// New component for nested dropdown menu items
+const NestedListItem = React.forwardRef<
+  React.ElementRef<"div">,
+  React.ComponentPropsWithoutRef<"div"> & { 
+    title: string;
+    subItems: Array<{ title: string; href: string; description?: string }>;
+  }
+>(({ className, title, subItems, ...props }, ref) => {
+  return (
+    <div ref={ref} className={cn("p-2", className)} {...props}>
+      <DropdownMenu>
+        <DropdownMenuTrigger className="flex w-full items-center justify-between rounded-md p-2 text-sm hover:bg-accent">
+          <span>{title}</span>
+          <ChevronRight className="ml-2 h-4 w-4" />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-48" align="start" alignOffset={-5} sideOffset={10}>
+          {subItems.map((item) => (
+            <DropdownMenuItem key={item.title} asChild>
+              <Link to={item.href} className="w-full">
+                {item.title}
+              </Link>
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
+  );
+});
+NestedListItem.displayName = "NestedListItem";
+
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -49,8 +85,7 @@ const Navbar = () => {
   };
 
   const handleLoginClick = () => {
-    // This would connect to the login page when it exists
-    // For now we'll take them to signup
+    // Navigate to signup page for now
     navigate('/signup');
   };
 
@@ -107,17 +142,44 @@ const Navbar = () => {
               <NavigationMenuItem>
                 <NavigationMenuTrigger className="bg-transparent hover:bg-[#D3E4FD] hover:translate-y-[-2px] hover:shadow-sm focus:bg-transparent data-[state=open]:bg-[#D3E4FD] data-[state=open]:translate-y-[-2px] text-gray-600 hover:text-fantom-green transition-all duration-300 rounded-md px-3 py-1.5">What we do</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    <ListItem href="/services/loans" title="Loans">
-                      Explore our loan products and services
-                    </ListItem>
-                    <ListItem href="/services/insurance" title="Insurance Agency">
-                      Comprehensive insurance solutions
-                    </ListItem>
-                    <ListItem href="/services/logbook-loans" title="Logbook Loans">
-                      Turn your car into quick cash without letting go
-                    </ListItem>
-                  </ul>
+                  <div className="w-[400px] p-4 md:w-[600px]">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <div className="space-y-3">
+                        <h3 className="font-medium text-base">Loans</h3>
+                        <ul className="space-y-2">
+                          <li>
+                            <Link 
+                              to="/services/logbook-loans" 
+                              className="block p-2 rounded-md hover:bg-accent text-sm"
+                            >
+                              Logbook Loans
+                            </Link>
+                          </li>
+                          <li>
+                            <Link 
+                              to="/services/landlord-loans" 
+                              className="block p-2 rounded-md hover:bg-accent text-sm"
+                            >
+                              Landlord Loans
+                            </Link>
+                          </li>
+                          <li>
+                            <Link 
+                              to="/services/asset-finance" 
+                              className="block p-2 rounded-md hover:bg-accent text-sm"
+                            >
+                              Asset Finance
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      <div>
+                        <ListItem href="/services/insurance" title="Insurance Agency">
+                          Comprehensive insurance solutions for all your needs
+                        </ListItem>
+                      </div>
+                    </div>
+                  </div>
                 </NavigationMenuContent>
               </NavigationMenuItem>
               
@@ -147,9 +209,11 @@ const Navbar = () => {
               <Link to="/about/company" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Our Company</Link>
               <Link to="/about/impact" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Our Impact</Link>
               <Link to="/about/media" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Media</Link>
-              <Link to="/services/loans" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Loans</Link>
+              <div className="py-2 px-4 font-medium">Loans:</div>
+              <Link to="/services/logbook-loans" className="py-2 px-6 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>- Logbook Loans</Link>
+              <Link to="/services/landlord-loans" className="py-2 px-6 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>- Landlord Loans</Link>
+              <Link to="/services/asset-finance" className="py-2 px-6 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>- Asset Finance</Link>
               <Link to="/services/insurance" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Insurance Agency</Link>
-              <Link to="/services/logbook-loans" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Logbook Loans</Link>
               <Link to="/cars4sale" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Cars4sale</Link>
               <Link to="/blog" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Blog</Link>
               <Link to="/resources" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Resources</Link>
