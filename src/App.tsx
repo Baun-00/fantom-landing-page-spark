@@ -27,65 +27,71 @@ import DocumentUploadProformaInvoicePage from "./pages/DocumentUploadProformaInv
 import ApplicationSubmittedPage from "./pages/ApplicationSubmittedPage";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
+import React from "react";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AuthProvider>
-          <AuthGuard>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              
-              {/* Auth routes */}
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/profile" element={<ProfilePage />} />
-              
-              {/* About us dropdown routes */}
-              <Route path="/about/company" element={<CompanyPage />} />
-              <Route path="/about/impact" element={<NotFound />} />
-              <Route path="/about/media" element={<MediaPage />} />
-              
-              {/* What we do dropdown routes */}
-              <Route path="/services/loans" element={<NotFound />} />
-              <Route path="/services/insurance" element={<InsuranceAgencyPage />} />
-              <Route path="/services/logbook-loans" element={<LogbookLoansPage />} />
-              <Route path="/services/landlord-loans" element={<LandlordLoansPage />} />
-              <Route path="/services/asset-finance" element={<AssetFinancePage />} />
-              
-              {/* Regular routes */}
-              <Route path="/cars4sale" element={<Cars4SalePage />} />
-              <Route path="/blog" element={<BlogPage />} />
-              <Route path="/blog/:slug" element={<BlogPostPage />} />
-              <Route path="/resources" element={<ResourcesPage />} />
-              <Route path="/contact" element={<ContactPage />} />
-              <Route path="/about" element={<CompanyPage />} />
-              <Route path="/services" element={<NotFound />} />
-              
-              {/* Loan Application Form Routes */}
-              <Route path="/signup" element={<SignupPage />} />
-              <Route path="/loan-application" element={<LoanApplicationPage />} />
-              <Route path="/documents-upload/mpesa" element={<DocumentUploadMpesaPage />} />
-              <Route path="/documents-upload/business-permit" element={<DocumentUploadBusinessPermitPage />} />
-              <Route path="/documents-upload/logbook" element={<DocumentUploadLogbookPage />} />
-              <Route path="/documents-upload/proforma-invoice" element={<DocumentUploadProformaInvoicePage />} />
-              <Route path="/application-submitted" element={<ApplicationSubmittedPage />} />
-              
-              {/* Legacy route for direct Media access - keep it for compatibility */}
-              <Route path="/media" element={<MediaPage />} />
-              
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </AuthGuard>
-        </AuthProvider>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+// Define App as a proper React function component
+const App: React.FC = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <React.StrictMode>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <AuthProvider>
+              <AuthGuard>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  
+                  {/* Auth routes */}
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/profile" element={<ProfilePage />} />
+                  
+                  {/* About us dropdown routes */}
+                  <Route path="/about/company" element={<CompanyPage />} />
+                  <Route path="/about/impact" element={<NotFound />} />
+                  <Route path="/about/media" element={<MediaPage />} />
+                  
+                  {/* What we do dropdown routes */}
+                  <Route path="/services/loans" element={<NotFound />} />
+                  <Route path="/services/insurance" element={<InsuranceAgencyPage />} />
+                  <Route path="/services/logbook-loans" element={<LogbookLoansPage />} />
+                  <Route path="/services/landlord-loans" element={<LandlordLoansPage />} />
+                  <Route path="/services/asset-finance" element={<AssetFinancePage />} />
+                  
+                  {/* Regular routes */}
+                  <Route path="/cars4sale" element={<Cars4SalePage />} />
+                  <Route path="/blog" element={<BlogPage />} />
+                  <Route path="/blog/:slug" element={<BlogPostPage />} />
+                  <Route path="/resources" element={<ResourcesPage />} />
+                  <Route path="/contact" element={<ContactPage />} />
+                  <Route path="/about" element={<CompanyPage />} />
+                  <Route path="/services" element={<NotFound />} />
+                  
+                  {/* Loan Application Form Routes */}
+                  <Route path="/signup" element={<SignupPage />} />
+                  <Route path="/loan-application" element={<LoanApplicationPage />} />
+                  <Route path="/documents-upload/mpesa" element={<DocumentUploadMpesaPage />} />
+                  <Route path="/documents-upload/business-permit" element={<DocumentUploadBusinessPermitPage />} />
+                  <Route path="/documents-upload/logbook" element={<DocumentUploadLogbookPage />} />
+                  <Route path="/documents-upload/proforma-invoice" element={<DocumentUploadProformaInvoicePage />} />
+                  <Route path="/application-submitted" element={<ApplicationSubmittedPage />} />
+                  
+                  {/* Legacy route for direct Media access - keep it for compatibility */}
+                  <Route path="/media" element={<MediaPage />} />
+                  
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </AuthGuard>
+            </AuthProvider>
+          </BrowserRouter>
+        </TooltipProvider>
+      </React.StrictMode>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
