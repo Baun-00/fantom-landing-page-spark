@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from 'react-router-dom';
-import { Menu, ChevronRight } from "lucide-react";
+import { Menu, ChevronRight, LogOut, User } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -18,6 +17,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useAuth } from '@/contexts/AuthContext';
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
@@ -79,18 +79,26 @@ NestedListItem.displayName = "NestedListItem";
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const { user, signOut } = useAuth();
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
   const handleLoginClick = () => {
-    // Navigate to signup page for now
-    navigate('/signup');
+    navigate('/login');
   };
 
   const handleSignupClick = () => {
     navigate('/signup');
+  };
+
+  const handleLogoutClick = async () => {
+    await signOut();
+  };
+
+  const handleProfileClick = () => {
+    navigate('/profile');
   };
 
   return (
@@ -218,26 +226,59 @@ const Navbar = () => {
               <Link to="/blog" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Blog</Link>
               <Link to="/resources" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Resources</Link>
               <Link to="/contact" className="py-2 px-4 hover:bg-gray-100 rounded-md" onClick={toggleMobileMenu}>Contact</Link>
-              <Button onClick={handleLoginClick} className="mt-3">Login</Button>
-              <Button onClick={handleSignupClick} className="mt-2 bg-fantom-green">Sign up</Button>
+              {user ? (
+                <>
+                  <Link to="/profile" className="py-2 px-4 hover:bg-gray-100 rounded-md flex items-center" onClick={toggleMobileMenu}>
+                    <User className="mr-2 h-4 w-4" /> Profile
+                  </Link>
+                  <button onClick={() => { handleLogoutClick(); toggleMobileMenu(); }} className="py-2 px-4 hover:bg-gray-100 rounded-md flex items-center text-left w-full">
+                    <LogOut className="mr-2 h-4 w-4" /> Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Button onClick={() => { handleLoginClick(); toggleMobileMenu(); }} className="mt-3">Login</Button>
+                  <Button onClick={() => { handleSignupClick(); toggleMobileMenu(); }} className="mt-2 bg-fantom-green">Sign up</Button>
+                </>
+              )}
             </div>
           </div>
         )}
         
         <div className="hidden md:flex items-center space-x-3">
-          <Button 
-            variant="outline" 
-            className="border-fantom-navy text-fantom-navy hover:bg-[#D3E4FD] hover:text-fantom-green transition-all duration-300 hover:shadow-md hover:-translate-y-0.5"
-            onClick={handleLoginClick}
-          >
-            Login
-          </Button>
-          <Button 
-            className="bg-fantom-green text-white hover:bg-fantom-green/90 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5" 
-            onClick={handleSignupClick}
-          >
-            Sign up
-          </Button>
+          {user ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="border-fantom-navy text-fantom-navy hover:bg-[#D3E4FD] hover:text-fantom-green">
+                  {user.email?.split('@')[0] || 'Account'}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={handleProfileClick} className="cursor-pointer">
+                  <User className="mr-2 h-4 w-4" /> Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleLogoutClick} className="cursor-pointer">
+                  <LogOut className="mr-2 h-4 w-4" /> Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <Button 
+                variant="outline" 
+                className="border-fantom-navy text-fantom-navy hover:bg-[#D3E4FD] hover:text-fantom-green transition-all duration-300 hover:shadow-md hover:-translate-y-0.5"
+                onClick={handleLoginClick}
+              >
+                Login
+              </Button>
+              <Button 
+                className="bg-fantom-green text-white hover:bg-fantom-green/90 transition-all duration-300 hover:shadow-md hover:-translate-y-0.5" 
+                onClick={handleSignupClick}
+              >
+                Sign up
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </nav>
