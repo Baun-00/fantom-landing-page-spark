@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
@@ -47,6 +46,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           toast.success('Signed out successfully');
         } else if (event === 'SIGNED_IN') {
           toast.success('Signed in successfully');
+          // Redirect to dashboard after successful login
+          navigate('/dashboard');
         }
       }
     );
@@ -66,7 +67,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => {
       subscription.unsubscribe();
     };
-  }, []);
+  }, [navigate]);
 
   const fetchProfile = async (userId: string) => {
     try {

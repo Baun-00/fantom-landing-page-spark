@@ -1,9 +1,8 @@
-
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -53,11 +52,6 @@ const LoginPage = () => {
   const [activeTab, setActiveTab] = useState('login');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { signIn, signUp, forgotPassword } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
-  
-  // Get redirect path from location state or default to home
-  const from = location.state?.from?.pathname || '/';
   
   // Initialize login form
   const loginForm = useForm<z.infer<typeof loginSchema>>({
@@ -91,7 +85,7 @@ const LoginPage = () => {
     try {
       setIsSubmitting(true);
       await signIn(data.email, data.password);
-      navigate(from);
+      // Navigation will be handled by AuthContext
     } catch (error) {
       console.error('Login error:', error);
     } finally {

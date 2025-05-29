@@ -26,9 +26,9 @@ export const AuthGuard = ({ children }: { children: React.ReactNode }) => {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
   
-  // If authenticated and trying to access login or signup, redirect to home
+  // If authenticated and trying to access login or signup, redirect to dashboard
   if (user && (location.pathname === '/login' || location.pathname === '/signup')) {
-    return <Navigate to="/" replace />;
+    return <Navigate to="/dashboard" replace />;
   }
   
   return <>{children}</>;
