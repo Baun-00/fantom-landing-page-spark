@@ -6,7 +6,7 @@ import { TrendingUp, TrendingDown } from 'lucide-react';
 const summaryData = [
   {
     title: 'Total Loan Amount',
-    value: '$150,750.00',
+    value: 'Ksh 150,750.00',
     change: '+5.2% vs last month',
     positive: true,
   },
@@ -18,7 +18,7 @@ const summaryData = [
   },
   {
     title: 'Pending Withdrawals',
-    value: '$5,230.00',
+    value: 'ksh 5,230.00',
     change: '-2.0% vs last month',
     positive: false,
   },

@@ -8,14 +8,14 @@ const loanAccounts = [
   {
     productName: 'Personal Loan',
     accountNo: 'L0012345',
-    loanAmount: '$25,000',
+    loanAmount: 'ksh 25,000',
     balance: '$18,500',
   },
   {
     productName: 'Mortgage',
     accountNo: 'L0023456',
-    loanAmount: '$150,000',
-    balance: '$132,250',
+    loanAmount: 'ksh 150,000',
+    balance: 'ksh 132,250',
   },
 ];
 
@@ -23,13 +23,13 @@ const depositAccounts = [
   {
     productName: 'Fan Current',
     accountNo: '020007911',
-    balance: '-$KES 35.00',
+    balance: '-KES 35.00',
     isOverdraft: true,
   },
   {
     productName: 'Savings Max',
     accountNo: '020007912',
-    balance: '$KES 12,450.00',
+    balance: 'KES 12,450.00',
     isOverdraft: false,
   },
 ];
