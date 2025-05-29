@@ -6,7 +6,7 @@ import {
   Users, 
   ArrowLeftRight, 
   HandCoins, 
-  UserTie, 
+  User, 
   FileText, 
   Settings, 
   Receipt 
@@ -17,7 +17,7 @@ const navigationItems = [
   { name: 'Beneficiaries', href: '/dashboard/beneficiaries', icon: Users },
   { name: 'Transfers', href: '/dashboard/transfers', icon: ArrowLeftRight },
   { name: 'Withdrawal Requests', href: '/dashboard/withdrawals', icon: HandCoins },
-  { name: 'Employees', href: '/dashboard/employees', icon: UserTie },
+  { name: 'Employees', href: '/dashboard/employees', icon: User },
   { name: 'Payroll', href: '/dashboard/payroll', icon: FileText },
   { name: 'Users', href: '/dashboard/users', icon: Settings },
   { name: 'Payslip', href: '/dashboard/payslip', icon: Receipt },
