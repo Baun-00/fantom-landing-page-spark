@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -27,6 +28,7 @@ import DocumentUploadProformaInvoicePage from "./pages/DocumentUploadProformaInv
 import ApplicationSubmittedPage from "./pages/ApplicationSubmittedPage";
 import LoginPage from "./pages/LoginPage";
 import ProfilePage from "./pages/ProfilePage";
+import DashboardPage from "./pages/DashboardPage";
 import React from "react";
 
 const queryClient = new QueryClient();
@@ -48,6 +50,10 @@ const App: React.FC = () => {
                   {/* Auth routes */}
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/profile" element={<ProfilePage />} />
+                  
+                  {/* Dashboard routes */}
+                  <Route path="/dashboard" element={<DashboardPage />} />
+                  <Route path="/dashboard/*" element={<DashboardPage />} />
                   
                   {/* About us dropdown routes */}
                   <Route path="/about/company" element={<CompanyPage />} />
